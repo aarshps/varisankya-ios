@@ -36,12 +36,8 @@ final class AuthService: NSObject {
             }
         }
     }
-
-    deinit {
-        if let handle = authListener {
-            Auth.auth().removeStateDidChangeListener(handle)
-        }
-    }
+    // No deinit — AuthService.shared is a process-lifetime singleton, so the
+    // listener never needs to be torn down.
 
     // MARK: - Sign out
     func signOut() throws {
