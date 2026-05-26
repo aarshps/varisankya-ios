@@ -104,6 +104,3 @@ targets:
     scheme:
       testTargets: []
       gatherCoverageData: false
-      configVariants:
-        - Debug
-        - Release
