@@ -1,0 +1,109 @@
+name: Varisankya
+options:
+  bundleIdPrefix: com.hora
+  deploymentTarget:
+    iOS: "26.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+  groupSortPosition: top
+  xcodeVersion: "16.0"
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+    MARKETING_VERSION: "3.8"
+    CURRENT_PROJECT_VERSION: "1"
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    GENERATE_INFOPLIST_FILE: NO
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+
+packages:
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk
+    minVersion: 11.0.0
+  GoogleSignIn:
+    url: https://github.com/google/GoogleSignIn-iOS
+    minVersion: 8.0.0
+
+targets:
+  Varisankya:
+    type: application
+    platform: iOS
+    sources:
+      - path: Varisankya
+        excludes:
+          - "**/*.md"
+    resources:
+      - path: Varisankya/Resources/Assets.xcassets
+      - path: Varisankya/Resources/GoogleService-Info.plist
+        optional: true
+    info:
+      path: Varisankya/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: Varisankya
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSRequiresIPhoneOS: true
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+        UILaunchScreen:
+          UIColorName: AccentColor
+        UIRequiredDeviceCapabilities:
+          - arm64
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UIUserInterfaceStyle: Automatic
+        ITSAppUsesNonExemptEncryption: false
+        NSUserTrackingUsageDescription: "Varisankya does not track you across other apps."
+        NSFaceIDUsageDescription: "Unlock Varisankya with Face ID to keep your subscriptions private."
+        CFBundleURLTypes:
+          - CFBundleTypeRole: Editor
+            CFBundleURLSchemes:
+              - $(GOOGLE_SIGN_IN_URL_SCHEME)
+    entitlements:
+      path: Varisankya/Resources/Varisankya.entitlements
+      properties:
+        com.apple.developer.applesignin:
+          - Default
+        aps-environment: development
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.hora.varisankya
+        INFOPLIST_KEY_UIRequiresFullScreen: NO
+        INFOPLIST_KEY_CFBundleDisplayName: Varisankya
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        TARGETED_DEVICE_FAMILY: "1"
+        SWIFT_EMIT_LOC_STRINGS: YES
+        ENABLE_PREVIEWS: YES
+        SUPPORTS_MACCATALYST: NO
+        GOOGLE_SIGN_IN_URL_SCHEME: "com.googleusercontent.apps.PLACEHOLDER"
+      configs:
+        Debug:
+          GCC_PREPROCESSOR_DEFINITIONS: "DEBUG=1 $(inherited)"
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "DEBUG $(inherited)"
+        Release:
+          SWIFT_OPTIMIZATION_LEVEL: "-O"
+          VALIDATE_PRODUCT: YES
+    dependencies:
+      - package: Firebase
+        product: FirebaseAuth
+      - package: Firebase
+        product: FirebaseFirestore
+      - package: Firebase
+        product: FirebaseAnalytics
+      - package: Firebase
+        product: FirebaseMessaging
+      - package: GoogleSignIn
+        product: GoogleSignIn
+      - package: GoogleSignIn
+        product: GoogleSignInSwift
+    scheme:
+      testTargets: []
+      gatherCoverageData: false
+      configVariants:
+        - Debug
+        - Release
