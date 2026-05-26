@@ -1,7 +1,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct PaymentRecord: Identifiable, Codable, Hashable, Sendable {
+struct PaymentRecord: Identifiable, Codable, Hashable {
     @DocumentID var id: String?
     var date: Date?
     var amount: Double = 0

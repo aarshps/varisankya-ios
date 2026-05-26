@@ -40,8 +40,8 @@ final class FirestoreService {
     /// the returned `ListenerRegistration` is removed.
     func observeSubscriptions(
         uid: String,
-        onChange: @escaping @Sendable ([Subscription]) -> Void,
-        onError: @escaping @Sendable (Error) -> Void
+        onChange: @escaping ([Subscription]) -> Void,
+        onError: @escaping (Error) -> Void
     ) -> ListenerRegistration {
         subsCollection(uid: uid)
             .order(by: "dueDate", descending: false)

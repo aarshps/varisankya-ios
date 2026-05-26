@@ -1,6 +1,6 @@
 import Foundation
 
-struct HeroState: Equatable, Sendable {
+struct HeroState: Equatable {
     var totalAmount: Double = 0
     var nextPayment: Subscription?
     var overdueSubscriptions: [Subscription] = []

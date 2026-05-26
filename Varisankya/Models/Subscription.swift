@@ -1,7 +1,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct Subscription: Identifiable, Codable, Hashable, Sendable {
+struct Subscription: Identifiable, Codable, Hashable {
     @DocumentID var id: String?
     var name: String = ""
     var dueDate: Date?

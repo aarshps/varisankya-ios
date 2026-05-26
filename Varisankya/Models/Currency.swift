@@ -1,6 +1,6 @@
 import Foundation
 
-struct CurrencyItem: Identifiable, Hashable, Sendable {
+struct CurrencyItem: Identifiable, Hashable {
     var id: String { code }
     let code: String
     let name: String
