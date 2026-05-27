@@ -68,10 +68,10 @@ enum NotificationScheduler {
     /// the Android worker's behaviour: emit at the user's chosen hour:minute
     /// of each day from `due - notificationDays` through `due` inclusive.
     static func rescheduleAll(for subscriptions: [Subscription]) async {
-        let prefs = await Preferences.shared
-        let hour = await prefs.notificationHour
-        let minute = await prefs.notificationMinute
-        let window = await prefs.notificationDays
+        let prefs = Preferences.shared
+        let hour = prefs.notificationHour
+        let minute = prefs.notificationMinute
+        let window = prefs.notificationDays
 
         clearAllScheduled()
 
