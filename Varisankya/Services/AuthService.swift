@@ -140,10 +140,27 @@ extension AuthService: ASAuthorizationControllerDelegate, ASAuthorizationControl
         // convention. `assumeIsolated` lets us access UIKit safely without the
         // deadlock that DispatchQueue.main.sync would cause.
         MainActor.assumeIsolated {
-            UIApplication.shared.connectedScenes
+            let scenes = UIApplication.shared.connectedScenes
                 .compactMap { $0 as? UIWindowScene }
-                .flatMap { $0.windows }
-                .first { $0.isKeyWindow } ?? UIWindow()
+            // Prefer the key window of a foreground-active scene.
+            if let window = scenes
+                .first(where: { $0.activationState == .foregroundActive })?
+                .windows.first(where: \.isKeyWindow) {
+                return window
+            }
+            // Fallback: any window on any scene we have.
+            if let window = scenes.flatMap(\.windows).first {
+                return window
+            }
+            // Unreachable in practice — Sign in with Apple is only invoked from
+            // a foregrounded SwiftUI button. Build a new window anchored to
+            // whichever scene exists so we don't hit the deprecated UIWindow().
+            if let scene = scenes.first {
+                return UIWindow(windowScene: scene)
+            }
+            // Truly degenerate: no scenes at all. Anchor to bare UIWindow as a
+            // last resort; the auth UI will still appear modally.
+            return UIWindow()
         }
     }
 

@@ -34,11 +34,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
         return true
     }
 
-    func application(
-        _ app: UIApplication,
-        open url: URL,
-        options: [UIApplication.OpenURLOptionsKey: Any] = [:]
-    ) -> Bool {
-        GIDSignIn.sharedInstance.handle(url)
-    }
+    // Google Sign-In URL callbacks are forwarded via SwiftUI's `.onOpenURL` in
+    // VarisankyaApp — no UIApplicationDelegate URL hook needed. The legacy
+    // `application(_:open:options:)` method is deprecated in iOS 26 in favour
+    // of UIScene-based handling, which `.onOpenURL` is built on.
 }
