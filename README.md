@@ -2,7 +2,19 @@
 
 iOS sibling of the [Varisankya Android](https://github.com/aarshps/varisankya-android) subscription
 manager. SwiftUI, iOS 26+ Liquid Glass, Firebase Auth + Firestore, Sign in with Apple +
-Google Sign-In.
+Google Sign-In. Same Firebase project, same Firestore documents — sign in on either platform and
+see the same subscriptions.
+
+Wiki: <https://github.com/aarshps/varisankya-ios/wiki>
+
+## Status
+
+| Surface | State |
+| --- | --- |
+| Source code | All screens ported, 0 warnings, 0 errors on iOS 26 SDK |
+| CI | Green at every push — [latest run](https://github.com/aarshps/varisankya-ios/actions) |
+| Firebase | iOS app registered in `helloworld-92567418`, Auth providers Google + Apple enabled, Firestore rules already permit iOS layout |
+| App Store | Pending Apple Developer Program enrollment (see [POST_ENROLLMENT.md](POST_ENROLLMENT.md)) |
 
 ## What this repo contains
 
@@ -72,7 +84,28 @@ See `Services/NotificationScheduler.swift` for the rationale.
 ## Bundle ID + Firebase
 
 - iOS bundle ID: `com.hora.varisankya`
-- Register that bundle ID inside the **same Firebase project** as Android so
-  both apps share Auth + Firestore. Download the resulting `GoogleService-Info.plist`
-  and either drop it locally or base64-encode it into the
-  `GOOGLE_SERVICE_INFO_BASE64` GitHub Secret for CI.
+- Firebase iOS app: registered in the `helloworld-92567418` project (same one
+  the Android app uses) — both apps therefore share Auth and Firestore. The
+  `GoogleService-Info.plist` is already downloaded; place it locally at
+  `Varisankya/Resources/GoogleService-Info.plist` (gitignored). CI reads it
+  from the `GOOGLE_SERVICE_INFO_BASE64` GitHub Secret (already set).
+
+## Companion docs
+
+- [POST_ENROLLMENT.md](POST_ENROLLMENT.md) — 8-stage checklist from the
+  Apple Developer welcome email to TestFlight (~45 min)
+- [APPLE_RUNBOOK.md](APPLE_RUNBOOK.md) — Apple Developer enrollment +
+  cert/profile/listing background
+- [METADATA.md](METADATA.md) — App Store listing copy
+- [PRIVACY_LABELS.md](PRIVACY_LABELS.md) — App Privacy nutrition labels
+- [SCREENSHOTS.md](SCREENSHOTS.md) — Screenshot capture spec
+- [AGENTS.md](AGENTS.md) — agent contract / design invariants
+
+## Scripts (`scripts/`)
+
+| Script | Purpose |
+| --- | --- |
+| `generate_icon.swift` | Renders placeholder 1024×1024 PNG app icon (used by CI) |
+| `generate_csr.sh` | One-shot OpenSSL to produce the Apple Distribution CSR (no Mac required) |
+| `pack_p12.sh` | Combines CSR private key + Apple's signed `.cer` into a `.p12`, base64-encodes it |
+| `check_apple_secrets.sh` | Audits which of the 9 release-workflow GitHub Secrets are set |
