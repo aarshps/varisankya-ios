@@ -45,8 +45,8 @@ Firebase + Apple Developer + App Store Connect setup walkthrough.
 ## CI
 
 - `ios-build.yml` runs on every push to `main` and every pull request. It uses a
-  macOS 15 runner, generates the project with XcodeGen, and builds an unsigned
-  Debug build to validate compilation.
+  `macos-latest` runner with Xcode 26.3 (latest-stable), generates the project
+  with XcodeGen, and builds an unsigned device build to validate compilation.
 - `ios-release.yml` is manually triggered (`workflow_dispatch`) or fires on `v*`
   tags. It signs with your Distribution certificate, archives, exports an IPA,
   and uploads to App Store Connect / TestFlight via `xcrun altool` with App

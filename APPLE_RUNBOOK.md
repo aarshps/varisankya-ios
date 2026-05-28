@@ -1,5 +1,17 @@
 # Apple Developer + App Store Connect Runbook
 
+> **Note (2026-05-28):** This document was written at project start and contains
+> some outdated assumptions:
+> - **Enrollment** is now via the **Apple Developer iOS app only** (web enrollment
+>   for individuals was deprecated in late 2024). Safari on Mac is not required.
+> - **CSR / .p12 generation** does NOT require a Mac — use `scripts/generate_csr.sh`
+>   + `scripts/pack_p12.sh` which use OpenSSL and work on any OS.
+> - **Xcode version** is now 26.3, not 16.
+>
+> For the current step-by-step post-enrollment checklist, see **[POST_ENROLLMENT.md](POST_ENROLLMENT.md)**.
+> This file is retained for background context and the App Store Connect / TestFlight
+> sections which remain accurate.
+
 Step-by-step path from zero (no Mac, no Apple account) to **Varisankya** live on
 the App Store. Every step is something **you** physically have to do — Apple
 won't let an automation or a third party act on your behalf for the enrollment,
